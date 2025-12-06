@@ -1,7 +1,13 @@
 #include <atomic>
+#include <condition_variable>
 #include <thread>
 #include <iostream>
 #include <vector>
+#include <mutex>
+
+
+std::mutex glock  ;
+std::condition_variable gConditionVar ;
 
 static  std::atomic<int> counter = 0; // <- critical region ( atomic )
 void incrementCounter()
@@ -19,6 +25,31 @@ int main() {
         threads[i].join();
     }
     std::cout << "Final Counter Value: " << counter << std::endl;
+
+    // synchronisation
+    // condition variable - >
+
+    bool notified = false;
+    int result = 0 ;
+
+    // reporting thread
+
+    std::thread reporter([&]{
+    });
+
+
+    //working thread
+
+    std::thread worker([&] {
+        std::unique_lock<std::mutex> lock(glock);
+
+    });
+
+
+
+
+
+
 
 
 }
